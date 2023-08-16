@@ -1,5 +1,29 @@
 #include<stdlib.h>
 
+/* 
+    isalpha(int c): Checks if character is an alphabetic char (a-z/A-Z).
+    isdigit(int c): Checks if character is a digit (0-9).
+    isalnum(int c): Checks if char is alphanumeric (letter/digit).
+    isascii(int c): Checks if char is valid ASCII (0-127).
+    isprint(int c): Checks if char is printable (32-126).
+    strlen(const char *s): Length of null-terminated str.
+    memset(void *s, int c, size_t n): Fill memory block with value.
+    bzero(void *s, size_t n): Fill memory block with zeros.
+    memcpy(void *dest, const void *src, size_t n): Copy memory.
+    memmove(void *dest, const void *src, size_t n): Copy with overlap.
+    strlcpy(char *dest, const char *src, size_t size): Safe string copy.
+    strlcat(char *dest, const char *src, size_t size): Safe string concat.
+    toupper(int c): Convert to uppercase.
+    tolower(int c): Convert to lowercase.
+    strchr(const char *s, int c): Find char in string.
+    strrchr(const char *s, int c): Find char in string (rev).
+    strncmp(const char *s1, const char *s2, size_t n): Compare n chars.
+    memchr(const void *s, int c, size_t n): Find char in mem.
+    memcmp(const void *s1, const void *s2, size_t n): Compare mem.
+    strnstr(const char *h, const char *n, size_t len): Find str in str.
+    atoi(const char *nptr): Convert str to int.
+ */
+
 int	ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
@@ -35,7 +59,7 @@ int	ft_isprint(int c)
 	return (0);
 }
 
-size_t	ft_strlen(char *c)
+size_t	ft_strlen(const char *c)
 {
 	size_t i;
 
@@ -111,7 +135,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-size_t ft_strlcpy(char *dst, char *src, size_t size)
+size_t ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t i;
 
@@ -162,7 +186,7 @@ char *ft_strchr(const char *s, int c)
 	int l;
 
 	i = 0;
-	l = ft_strlen((char *)s);
+	l = ft_strlen(s);
 	while (i <= l)
 	{
 		if (s[i] == c)
@@ -176,7 +200,7 @@ char *ft_strrchr(const char *s, int c)
 {
 	int i;
 
-	i = ft_strlen((char *)s);
+	i = ft_strlen(s);
 	while (i >= 0)
 	{
 		if (s[i] == c)
@@ -242,10 +266,10 @@ char	*ft_strnstr(const char	*s1, const char *s2, size_t len)
 	size_t	s2_len;
 
 	i = 0;
-	s2_len = ft_strlen((char *)s2);
+	s2_len = ft_strlen(s2);
 	if (s2_len == 0)
 		return ((char *)s1);
-	if (ft_strlen((char *)s1) < s2_len)
+	if (ft_strlen(s1) < s2_len)
 		return (NULL);
 	while (i <= len - s2_len)
 	{
@@ -336,7 +360,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	str = malloc(ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1);
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
 	while (s1[i] != 0)
@@ -362,7 +386,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	while (*s1 && ft_strchr(set, *s1) != NULL)
 		*s1++;
-	i = ft_strlen((char *)s1) - 1;
+	i = ft_strlen(s1) - 1;
 	while (ft_strchr(set, s1[i]) != NULL)
 		i--;
 	str = (char *)malloc(sizeof(char) * i + 1);
@@ -434,37 +458,37 @@ int	set_char(char *s, char dst, char src)
 // }
 
 
-char **ft_split(char const *s, char c)
-{
-	int		i;
-	int		j;
-	char	**str_array;
+// char **ft_split(char const *s, char c)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**str_array;
 
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			j++;
-		i++;
-	}
-	str_array = (char **)malloc(sizeof(char *) * j + 1);
-	if (!str_array)
-		return (NULL);
-	i = 0;
-	while (*s)
-	{
-		int k = (ft_strchr(s, c) - s + 1);
-		str_array[i] = malloc((ft_strchr(s, c) - s + 1) * sizeof(char));
-		ft_memcpy(str_array[i], s, ft_strchr(s, c) -s);
-		str_array[i][ft_strchr(s, c) - s + 1] = 0;
-		s = ft_strchr(s, c) + 1;
-		char *x = str_array[i];
-		// printf("%s\n", str_array[i]);
-		i++;
-	}
-	str_array[i] = NULL;
-	return (str_array);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (s[i])
+// 	{
+// 		if (s[i] == c)
+// 			j++;
+// 		i++;
+// 	}
+// 	str_array = (char **)malloc(sizeof(char *) * j + 1);
+// 	if (!str_array)
+// 		return (NULL);
+// 	i = 0;
+// 	while (*s)
+// 	{
+// 		int k = (ft_strchr(s, c) - s + 1);
+// 		str_array[i] = malloc((ft_strchr(s, c) - s + 1) * sizeof(char));
+// 		ft_memcpy(str_array[i], s, ft_strchr(s, c) -s);
+// 		str_array[i][ft_strchr(s, c) - s + 1] = 0;
+// 		s = ft_strchr(s, c) + 1;
+// 		char *x = str_array[i];
+// 		// printf("%s\n", str_array[i]);
+// 		i++;
+// 	}
+// 	str_array[i] = NULL;
+// 	return (str_array);
+// }
 
 
