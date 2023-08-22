@@ -149,20 +149,22 @@ size_t ft_strlcpy(char *dst, const char *src, size_t size)
 	return (ft_strlen(src));
 }
 
-size_t ft_strlcat(char *dst, char *src, size_t size)
+size_t ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t i;
 	size_t j;
 
 	j = 0;
 	i = ft_strlen(dst);
-	while (i < size - 1 && src[i] != 0)
+	while (i < size - 1 && src[j] != 0)
 	{
 		dst[i] = src[j];
 		i++;
 		j++;
 	}
 	dst[i] = 0;
+	if (ft_strlen(dst) > size)
+		return(ft_strlen(src) + ft_strlen(dst));
 	return (ft_strlen(dst));
 }
 
@@ -419,76 +421,44 @@ int	set_char(char *s, char dst, char src)
 	return (i);
 }
 
-// char **ft_split(const char *s, char c)
-// {	
-//     int i = 0;
-//     int j = 0;
-//     char *buffer;
-//     char **str_array;
+int	cpy_splits(char c, char const *s, char **str_array, size_t str_count)
+{
+	int	i;
+	
+	i = 0;
+	if (s[i] == 0)
+		return (1);
+	while (s[i] != c && s[i])
+		i++;
+	str_array[str_count] = (char *)malloc(sizeof(char) * i + 1);
+	if (!str_array[str_count])
+		return (0);
+	ft_strlcpy(str_array[str_count], s, i + 1);
+	s += i + 1;
+	if (cpy_splits(c, s, str_array, str_count + 1) == 0)
+		free (str_array[str_count]);
+	return (1);
+}
 
-//     buffer = (char *)malloc(ft_strlen((char *)s) + 1);
-//     if (!buffer)
-//         return NULL;
-//     ft_strlcpy(buffer, (char *)s, ft_strlen((char *)s) + 1);
-//     j = set_char(buffer, c, '\0');
-//     str_array = (char **)malloc(sizeof(char *) * (j + 1));
-//     if (!str_array)
-//     {
-//         free(buffer);
-//         return NULL;
-//     }
-//     while (i <= j)
-//     {
-//         str_array[i] = (char *)malloc((ft_strlen(buffer) + 1) * sizeof(char));
-//         if (!str_array[i])
-//         {
-//             while (i > 0)
-//                 free(str_array[--i]);
-//             free(str_array);
-//             free(buffer);
-//             return NULL;
-//         }
-//         ft_strlcpy(str_array[i], buffer, ft_strlen(buffer) + 1);
-//         buffer += ft_strlen(buffer) + 1;
-//         i++;
-//     }
-//     str_array[i] = NULL;
-//     free(buffer); // Free the original buffer
-//     return str_array;
-// }
+char **ft_split(char const *s, char c)
+{
+	int i = 0;
+	int j = 0;
+	char **str_array;
 
-
-// char **ft_split(char const *s, char c)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	**str_array;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] == c)
-// 			j++;
-// 		i++;
-// 	}
-// 	str_array = (char **)malloc(sizeof(char *) * j + 1);
-// 	if (!str_array)
-// 		return (NULL);
-// 	i = 0;
-// 	while (*s)
-// 	{
-// 		int k = (ft_strchr(s, c) - s + 1);
-// 		str_array[i] = malloc((ft_strchr(s, c) - s + 1) * sizeof(char));
-// 		ft_memcpy(str_array[i], s, ft_strchr(s, c) -s);
-// 		str_array[i][ft_strchr(s, c) - s + 1] = 0;
-// 		s = ft_strchr(s, c) + 1;
-// 		char *x = str_array[i];
-// 		// printf("%s\n", str_array[i]);
-// 		i++;
-// 	}
-// 	str_array[i] = NULL;
-// 	return (str_array);
-// }
-
-
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			j++;
+		i++;
+	}
+	str_array = (char **)malloc(sizeof(char *) * j + 1);
+	if (!str_array)
+		return (NULL);
+	if (cpy_splits(c, s, str_array, 0) == 0)
+		free (str_array);
+	str_array[j + 1] = NULL;
+	return (str_array);
+}
