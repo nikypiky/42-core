@@ -1,4 +1,5 @@
 #include<stdlib.h>
+#include<unistd.h>
 
 /* 
     isalpha(int c): Checks if character is an alphabetic char (a-z/A-Z).
@@ -156,6 +157,7 @@ size_t ft_strlcat(char *dst, const char *src, size_t size)
 
 	j = 0;
 	i = ft_strlen(dst);
+	size_t dst_len = i;
 	while (i < size - 1 && src[j] != 0)
 	{
 		dst[i] = src[j];
@@ -163,9 +165,9 @@ size_t ft_strlcat(char *dst, const char *src, size_t size)
 		j++;
 	}
 	dst[i] = 0;
-	if (ft_strlen(dst) > size)
-		return(ft_strlen(src) + ft_strlen(dst));
-	return (ft_strlen(dst));
+	if (dst_len > size)
+		return(ft_strlen(src) + size);
+	return (dst_len);
 }
 
 int ft_toupper(int c)
@@ -461,4 +463,120 @@ char **ft_split(char const *s, char c)
 		free (str_array);
 	str_array[j + 1] = NULL;
 	return (str_array);
+}
+
+char	*ft_itoa_negative(int n, int j, char *str)
+{
+	str[j] = 0;
+	str[0] = '-';
+	n = -n;
+	while (j > 0)
+	{
+		str[j] = n % 10 + 48;
+		n /= 10;
+		j--;
+	}
+	return(str);
+}
+
+char	*ft_itoa(int n)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	if (n == 0)
+		return ("0");
+	i = 1;
+	j = 0;
+	while (n / i)
+	{
+		i *= 10;
+		j++;
+	}
+	str = (char *)malloc(sizeof(char) * (j + 1));
+	if (n < 0)
+		return(ft_itoa_negative(n, j, str));
+	if (!str)
+		return (NULL);
+	str[j] = 0;
+	while (j >= 0)
+	{
+		str[j-1] = n % 10 + 48;
+		n /= 10;
+		j--;
+	}
+	return(str);
+}
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = (char *)malloc(ft_strlen(s) * sizeof(char));
+	if (!str)
+		return (NULL);
+	while (s[i])
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}
+
+void ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	int	i;
+
+	i = 0;
+	while (*s)
+	{
+		f(i, s);
+		i++;
+		s++;
+	}
+}
+
+void ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}
+
+void ft_putendl_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
+}
+
+void ft_putnbr_fd(int n, int fd)
+{
+	char	*str;
+
+	str = ft_itoa(n);
+	write(fd, str, ft_strlen(str));
+}
+
+typedef struct s_list
+{
+void			*content;
+struct s_list	*next;
+} t_list;
+
+t_list *ft_lstnew(void *content)
+{
+	t_list	*list;
+	t_list	entry;
+
+	list = (t_list *)malloc(sizeof(t_list));
+	list[0] = entry;
+	entry.content = "stop";
+	return(list);
 }
