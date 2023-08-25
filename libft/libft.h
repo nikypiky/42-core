@@ -572,11 +572,49 @@ struct s_list	*next;
 
 t_list *ft_lstnew(void *content)
 {
-	t_list	*list;
-	t_list	entry;
+	t_list	*new_node;
 
-	list = (t_list *)malloc(sizeof(t_list));
-	list[0] = entry;
-	entry.content = "stop";
-	return(list);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return(new_node);
+}
+
+void ft_lstadd_front(t_list **lst, t_list *new)
+{
+	new -> next = *lst;
+	*lst = new;
+}
+
+int ft_lstsize(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst -> next;
+		i++;
+	}
+	return(i);
+}
+
+t_list *ft_lstlast(t_list *lst)
+{
+	while (lst->next != NULL)
+		lst = lst -> next;
+	return(lst);
+}
+
+void ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*position;
+
+	position = *lst;
+	while (position->next != NULL)
+		position = position -> next;
+	position->next = new;
+	new->next = NULL;
 }
