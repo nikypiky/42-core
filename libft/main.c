@@ -5,18 +5,7 @@
 #include <fcntl.h>
 #include<ctype.h>
 
-void *f(void *content)
-{
-    char *str = (char *)content;
-    str[0] = 'x';
-}
-
-void del(void *content)
-{
-	// free(content); // Free the content (assuming it was dynamically allocated)
-}
-
 int main()
 {
-    printf("%d", isalnum('d'));
+    printf("%s", ft_strtrim("hello", "hlo"));
 }

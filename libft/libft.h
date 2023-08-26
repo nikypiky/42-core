@@ -6,7 +6,7 @@
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 15:22:58 by nik               #+#    #+#             */
-/*   Updated: 2023/08/26 15:51:00 by nik              ###   ########.fr       */
+/*   Updated: 2023/08/26 19:00:55 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -402,7 +402,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*str;
 
 	while (*s1 && ft_strchr(set, *s1) != NULL)
-		*s1++;
+		s1++;
 	i = ft_strlen(s1) - 1;
 	while (ft_strchr(set, s1[i]) != NULL)
 		i--;
@@ -698,14 +698,4 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		lst = lst->next;
 	}
 	return (new_lst);
-}
-
-void	ft_print_list(t_list *lst)
-{
-	while (lst != NULL)
-	{
-		printf("%s ", (char *)lst->content);
-		lst = lst->next;
-	}
-	printf("\n");
 }
