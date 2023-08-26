@@ -1,5 +1,17 @@
-#include<stdlib.h>
-#include<unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 15:22:58 by nik               #+#    #+#             */
+/*   Updated: 2023/08/26 15:51:00 by nik              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+#include <unistd.h>
 
 /* 
     isalpha(int c): Checks if character is an alphabetic char (a-z/A-Z).
@@ -35,15 +47,15 @@ int	ft_isalpha(int c)
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return(2048);
-	return(0);
+		return (2048);
+	return (0);
 }
 
 int	ft_isalnum(int c)
 {
-	if ((c >= '0' && c <= '9') || ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))
+	if (ft_isdigit(c) || ft_isalpha(c))
 		return (8);
-	return(0);
+	return (0);
 }
 
 int	ft_isascii(int c)
@@ -62,7 +74,7 @@ int	ft_isprint(int c)
 
 size_t	ft_strlen(const char *c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (c[i] != 0)
@@ -80,7 +92,7 @@ void	*ft_memset(void *s, int c, size_t n)
 		((unsigned char *)s)[i] = (unsigned char)c;
 		i++;
 	}
-	return(s);
+	return (s);
 }
 
 void	ft_bzero(void *s, size_t n)
@@ -97,7 +109,7 @@ void	ft_bzero(void *s, size_t n)
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)
@@ -110,9 +122,9 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t i;
-	unsigned char *d;
-	unsigned char *s;
+	size_t			i;
+	unsigned char	*d;
+	unsigned char	*s;
 
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;
@@ -136,9 +148,9 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-size_t ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < size - 1 && src[i] != 0)
@@ -150,14 +162,15 @@ size_t ft_strlcpy(char *dst, const char *src, size_t size)
 	return (ft_strlen(src));
 }
 
-size_t ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
+	size_t	dst_len;
 
 	j = 0;
 	i = ft_strlen(dst);
-	size_t dst_len = i;
+	dst_len = i;
 	while (i < size - 1 && src[j] != 0)
 	{
 		dst[i] = src[j];
@@ -166,49 +179,49 @@ size_t ft_strlcat(char *dst, const char *src, size_t size)
 	}
 	dst[i] = 0;
 	if (dst_len > size)
-		return(ft_strlen(src) + size);
+		return (ft_strlen(src) + size);
 	return (dst_len);
 }
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (c - 32);
 	return (c);
 }
 
-int ft_tolower(int c)
+int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
 		return (c + 32);
 	return (c);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	int i;
-	int l;
+	int	i;
+	int	l;
 
 	i = 0;
 	l = ft_strlen(s);
 	while (i <= l)
 	{
 		if (s[i] == c)
-			return((char *)&s[i]);
+			return ((char *)&s[i]);
 		i++;
 	}
 	return (NULL);
 }
 
-char *ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(s);
 	while (i >= 0)
 	{
 		if (s[i] == c)
-			return((char *)&s[i]);
+			return ((char *)&s[i]);
 		i--;
 	}
 	return (NULL);
@@ -216,31 +229,31 @@ char *ft_strrchr(const char *s, int c)
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)
-		{
-			if (s1[i] != s2[i])
-				return (s1[i] - s2[i]);
-			if (s1[i] == 0 || s2[i] == 0)
-				return(0);
-			i++;
-		}
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		if (s1[i] == 0 || s2[i] == 0)
+			return (0);
+		i++;
+	}
 	return (0);
 }
 
-void *ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t i;
-	char *str;
+	size_t	i;
+	char	*str;
 
 	str = (char *)s;
 	i = 0;
 	while (i < n)
 	{
 		if (str[i] == c)
-			return(&str[i]);
+			return (&str[i]);
 		i++;
 	}
 	return (NULL);
@@ -248,19 +261,19 @@ void *ft_memchr(const void *s, int c, size_t n)
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t i;
-	char *str1;
-	char *str2;
+	size_t	i;
+	char	*str1;
+	char	*str2;
 
 	i = 0;
 	str1 = (char *)s1;
 	str2 = (char *)s2;
 	while (i < n)
-		{
-			if (str1[i] != str2[i])
-				return (str1[i] - str2[i]);
-			i++;
-		}
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
 	return (0);
 }
 
@@ -278,7 +291,7 @@ char	*ft_strnstr(const char	*s1, const char *s2, size_t len)
 	while (i <= len - s2_len)
 	{
 		if (ft_strncmp(&s1[i], s2, s2_len - 1) == 0)
-			return((char *)&s1[i]);
+			return ((char *)&s1[i]);
 		i++;
 	}
 	return (NULL);
@@ -314,10 +327,10 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	i = 0;
 	array = malloc(nmemb * size);
 	while (i < nmemb * size)
-		{
-			array[i] = 0;
-			i++;
-		}
+	{
+		array[i] = 0;
+		i++;
+	}
 	return (array);
 }
 
@@ -347,7 +360,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str = malloc(len + 1);
 	if (str == NULL)
 		return (NULL);
-	while(i < len)
+	while (i < len)
 	{
 		str[i] = s[i + start];
 		i++;
@@ -426,7 +439,7 @@ int	set_char(char *s, char dst, char src)
 int	cpy_splits(char c, char const *s, char **str_array, size_t str_count)
 {
 	int	i;
-	
+
 	i = 0;
 	if (s[i] == 0)
 		return (1);
@@ -442,11 +455,11 @@ int	cpy_splits(char c, char const *s, char **str_array, size_t str_count)
 	return (1);
 }
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	int i = 0;
-	int j = 0;
-	char **str_array;
+	int		i;
+	int		j;
+	char	**str_array;
 
 	i = 0;
 	j = 0;
@@ -476,37 +489,45 @@ char	*ft_itoa_negative(int n, int j, char *str)
 		n /= 10;
 		j--;
 	}
-	return(str);
+	return (str);
+}
+
+int	digit_nbr(int nbr)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (nbr / i)
+	{
+		i *= 10;
+		j++;
+	}
+	return (j);
 }
 
 char	*ft_itoa(int n)
 {
-	int		i;
 	int		j;
 	char	*str;
 
 	if (n == 0)
 		return ("0");
-	i = 1;
-	j = 0;
-	while (n / i)
-	{
-		i *= 10;
-		j++;
-	}
+	j = digit_nbr(n);
 	str = (char *)malloc(sizeof(char) * (j + 1));
 	if (n < 0)
-		return(ft_itoa_negative(n, j, str));
+		return (ft_itoa_negative(n, j, str));
 	if (!str)
 		return (NULL);
 	str[j] = 0;
 	while (j >= 0)
 	{
-		str[j-1] = n % 10 + 48;
+		str[j - 1] = n % 10 + 48;
 		n /= 10;
 		j--;
 	}
-	return(str);
+	return (str);
 }
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
@@ -527,7 +548,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	return (str);
 }
 
-void ft_striteri(char *s, void (*f)(unsigned int, char*))
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	int	i;
 
@@ -540,23 +561,23 @@ void ft_striteri(char *s, void (*f)(unsigned int, char*))
 	}
 }
 
-void ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
 }
 
-void ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
 }
 
-void ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	char	*str;
 
@@ -566,11 +587,11 @@ void ft_putnbr_fd(int n, int fd)
 
 typedef struct s_list
 {
-void			*content;
-struct s_list	*next;
-} t_list;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
-t_list *ft_lstnew(void *content)
+t_list	*ft_lstnew(void *content)
 {
 	t_list	*new_node;
 
@@ -579,16 +600,16 @@ t_list *ft_lstnew(void *content)
 		return (NULL);
 	new_node->content = content;
 	new_node->next = NULL;
-	return(new_node);
+	return (new_node);
 }
 
-void ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	new -> next = *lst;
 	*lst = new;
 }
 
-int ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
 	int	i;
 
@@ -598,17 +619,17 @@ int ft_lstsize(t_list *lst)
 		lst = lst -> next;
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
-t_list *ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
 	while (lst->next != NULL)
 		lst = lst -> next;
-	return(lst);
+	return (lst);
 }
 
-void ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*position;
 
@@ -619,21 +640,21 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 	new->next = NULL;
 }
 
-void ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (!lst || !del)
-		return;
+		return ;
 	del(lst->content);
 	free(lst);
 }
 
-void ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
 	t_list	*node;
 	t_list	*temp_node;
 
 	if (!lst || !del)
-		return;
+		return ;
 	node = *lst;
 	while (node != NULL)
 	{
@@ -645,7 +666,7 @@ void ft_lstclear(t_list **lst, void (*del)(void*))
 	*lst = NULL;
 }
 
-void ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	while (lst != NULL)
 	{
@@ -654,7 +675,7 @@ void ft_lstiter(t_list *lst, void (*f)(void *))
 	}
 }
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new_lst;
 	t_list	*new_node;
@@ -670,17 +691,16 @@ t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		new_node = ft_lstnew(lst->content);
 		if (new_node == NULL)
 		{
-			ft_lstclear(new_lst, del);
-			return(NULL);
+			ft_lstclear(&new_lst, del);
+			return (NULL);
 		}
 		ft_lstadd_back(&new_lst, new_node);
 		lst = lst->next;
 	}
-	return(new_lst);
+	return (new_lst);
 }
 
-
-void ft_print_list(t_list *lst)
+void	ft_print_list(t_list *lst)
 {
 	while (lst != NULL)
 	{
