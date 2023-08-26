@@ -4,42 +4,46 @@
 #include <string.h>
 #include <fcntl.h>
 
-// int main()
-// {
-//     // Create nodes with content
-//     t_list *node1 = ft_lstnew("Hello");
-//     t_list *node2 = ft_lstnew("world!");
-//     ft_lstadd_front(&node1, node2);
-//     printf("%p - %p", node1, node2->next);
-// }
+void *f(void *content)
+{
+    char *str = (char *)content;
+    str[0] = 'x';
+}
+
+void del(void *content)
+{
+	// free(content); // Free the content (assuming it was dynamically allocated)
+}
 
 int main()
 {
-    t_list *head = NULL; // Initialize the head pointer to NULL
+    t_list *head = NULL;
 
-    // Create nodes and add them to the front of the list
-    t_list *node1 = ft_lstnew("Hello");
+    char *str1 = strdup("Hello");
+    t_list *node1 = ft_lstnew(str1);
     ft_lstadd_front(&head, node1);
 
-    t_list *node2 = ft_lstnew("World");
-    ft_lstadd_front(&head, node2);
+    char *str2 = strdup("World");
+    t_list *node2 = ft_lstnew(str2);
+    ft_lstadd_back(&head, node2);
 
-    t_list *node3 = ft_lstnew("!");
-    ft_lstadd_front(&head, node3);
+    char *str3 = strdup("");
+    t_list *node3 = ft_lstnew(str3);
+    ft_lstadd_back(&head, node3);
 
-    t_list *test = ft_lstlast(head);
-    // Traverse and print the linked list
-    printf("%s\n", (char *)test->content);
-    t_list *current = head;
-    while (current != NULL)
-    {
-        printf("%s ", (char *)current->content);
-        current = current->next;
-    }
+    char *str4 = strdup("bruh");
+    t_list *node4 = ft_lstnew(str4);
+    ft_lstadd_back(&head, node4);
 
-    // Free memory allocated for nodes
-    free(node1);
-    free(node2);
+    ft_print_list(head);
+
+    t_list  *test = ft_lstmap(head, f, del);
+
+    ft_print_list(head);
+    ft_print_list(test);
+
+    // Free memory allocated for nodes and strings
+    // ft_lstclear(&head, free);
 
     return 0;
 }

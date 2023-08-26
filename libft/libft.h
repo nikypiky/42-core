@@ -618,3 +618,74 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 	position->next = new;
 	new->next = NULL;
 }
+
+void ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (!lst || !del)
+		return;
+	del(lst->content);
+	free(lst);
+}
+
+void ft_lstclear(t_list **lst, void (*del)(void*))
+{
+	t_list	*node;
+	t_list	*temp_node;
+
+	if (!lst || !del)
+		return;
+	node = *lst;
+	while (node != NULL)
+	{
+		temp_node = node;
+		node = node->next;
+		del(temp_node->content);
+		free(temp_node);
+	}
+	*lst = NULL;
+}
+
+void ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	while (lst != NULL)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+}
+
+t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*new_lst;
+	t_list	*new_node;
+
+	f(lst->content);
+	del(lst->content);
+	new_lst = ft_lstnew(lst->content);
+	lst = lst->next;
+	while (lst != NULL)
+	{
+		f(lst->content);
+		del(lst->content);
+		new_node = ft_lstnew(lst->content);
+		if (new_node == NULL)
+		{
+			ft_lstclear(new_lst, del);
+			return(NULL);
+		}
+		ft_lstadd_back(&new_lst, new_node);
+		lst = lst->next;
+	}
+	return(new_lst);
+}
+
+
+void ft_print_list(t_list *lst)
+{
+	while (lst != NULL)
+	{
+		printf("%s ", (char *)lst->content);
+		lst = lst->next;
+	}
+	printf("\n");
+}
