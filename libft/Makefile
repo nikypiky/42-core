@@ -44,8 +44,8 @@ OFILES	= $(files:%=%.o)
 NAME	= $(OUTN)
 
 $(NAME):
-	$(Compiler) $(CmpFlags) -c $(CFILES) -I./
-	ar -rc $(OUTN) $(OFILES)
+	@$(Compiler) $(CmpFlags) -c $(CFILES) -I./
+	@ar -rc $(OUTN) $(OFILES)
 
 all: $(NAME) run
 
