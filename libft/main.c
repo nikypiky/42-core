@@ -14,10 +14,11 @@ void	ft_print_result(int n)
 
 int main()
 {
-    char *dest = (char *)malloc(sizeof(*dest) * 15);
-	memset(dest, 0, 15);
-	memset(dest, 'r', 15);
+    //char *dest = ft_strnstr("lorem ipsum dolor sit amet", "dolor", 0);
+	//memset(dest, 0, 15);
+	//memset(dest, 'r', 6);
 	//dest[10] = 'a';
-	int i = ft_strlcat(dest, "lorem ipsum dolor sit amet", 5);
-	printf("%d %s", i, dest);
+	//int i = '\e';
+	printf("%d ",   ft_atoi("--5"));
+	printf("%d ",      atoi("--5"));
 }
