@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 17:04:27 by nik               #+#    #+#             */
-/*   Updated: 2023/09/05 20:36:36 by nik              ###   ########.fr       */
+/*   Created: 2023/09/06 22:34:20 by nik               #+#    #+#             */
+/*   Updated: 2023/09/06 23:02:32 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
+	t_list	*node;
+	t_list	*temp_node;
 
-	str = 0;
-	if (s1 != 0 && set != 0)
+	if (!lst || !del)
+		return ;
+	node = *lst;
+	while (node != NULL)
 	{
-		i = 0;
-		j = ft_strlen(s1);
-		while (s1[i] && ft_strchr(set, s1[i]))
-			i++;
-		while (s1[j - 1] && ft_strchr(set, s1[j - 1]) && j > i)
-			j--;
-		str = (char *)malloc(sizeof(char) * (j - i + 1));
-		if (str)
-			ft_strlcpy(str, &s1[i], j - i + 1);
+		temp_node = node;
+		node = node->next;
+		del(temp_node->content);
+		free(temp_node);
 	}
-	return (str);
+	*lst = NULL;
 }

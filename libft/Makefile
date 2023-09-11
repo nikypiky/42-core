@@ -30,7 +30,18 @@ files 	   = ft_strlen \
 			 ft_itoa \
 			 ft_strmapi \
 
+bonus	  = ft_lstiter \
+			ft_lstsize \
+			ft_lstmap \
+			ft_lstnew \
+			ft_lstadd_front \
+			ft_lstadd_back \
+			ft_lstlast \
+			ft_lstclear \
+			ft_lstdelone
 
+
+			
 Compiler	= gcc
 
 CmpFlags	= -Wall -Wextra -Werror
@@ -41,19 +52,26 @@ CFILES	= $(files:%=%.c)
 
 OFILES	= $(files:%=%.o)
 
+CBONUS	= $(bonus:%=%.c)
+
+OBONUS	= $(bonus:%=%.o)
+
 NAME	= $(OUTN)
+
+all: make bonus $(NAME) run
 
 $(NAME):
 	@$(Compiler) $(CmpFlags) -c $(CFILES) -I./
-	@ar -rc $(OUTN) $(OFILES)
+	@ar -rc $(OUTN) $(OFILES) $(OBONUS)
 
-all: $(NAME) run
+make bonus:
+	@$(Compiler) $(CmpFlags) -c $(CBONUS) -I./
 
 clean:
-	rm -f *.o
+	@rm -f *.o
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

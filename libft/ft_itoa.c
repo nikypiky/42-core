@@ -6,60 +6,54 @@
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 17:03:01 by nik               #+#    #+#             */
-/*   Updated: 2023/08/30 17:03:02 by nik              ###   ########.fr       */
+/*   Updated: 2023/09/06 22:20:22 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_negative(int n, int j, char *str)
-{
-	str[j] = 0;
-	str[0] = '-';
-	n = -n;
-	while (j > 0)
-	{
-		str[j] = n % 10 + 48;
-		n /= 10;
-		j--;
-	}
-	return (str);
-}
-
 int	digit_nbr(int nbr)
 {
-	int	i;
-	int	j;
+	int	str;
 
-	i = 1;
-	j = 0;
-	while (nbr / i)
+	str = 0;
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
+		str++;
+	while (nbr)
 	{
-		i *= 10;
-		j++;
+		nbr /= 10;
+		str++;
 	}
-	return (j);
+	return (str);
 }
 
 char	*ft_itoa(int n)
 {
-	int		j;
-	char	*str;
+	char			*string;
+	unsigned int	nbr;
+	unsigned int	str;
 
-	if (n == 0)
-		return ("0");
-	j = digit_nbr(n);
-	str = (char *)malloc(sizeof(char) * (j + 1));
-	if (n < 0)
-		return (ft_itoa_negative(n, j, str));
-	if (!str)
+	str = digit_nbr(n);
+	string = (char *)malloc(sizeof(char) * (str + 1));
+	if (string == NULL)
 		return (NULL);
-	str[j] = 0;
-	while (j >= 0)
+	if (n < 0)
 	{
-		str[j - 1] = n % 10 + 48;
-		n /= 10;
-		j--;
+		string[0] = '-';
+		nbr = -n;
 	}
-	return (str);
+	else
+		nbr = n;
+	if (nbr == 0)
+		string[0] = '0';
+	string[str] = '\0';
+	while (nbr != 0)
+	{
+		string[str - 1] = (nbr % 10) + '0';
+		nbr = nbr / 10;
+		str--;
+	}
+	return (string);
 }

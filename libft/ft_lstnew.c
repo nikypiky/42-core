@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 17:04:27 by nik               #+#    #+#             */
-/*   Updated: 2023/09/05 20:36:36 by nik              ###   ########.fr       */
+/*   Created: 2023/09/06 22:25:35 by nik               #+#    #+#             */
+/*   Updated: 2023/09/08 14:36:54 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+t_list	*ft_lstnew(void *content)
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
+	t_list	*new_node;
 
-	str = 0;
-	if (s1 != 0 && set != 0)
-	{
-		i = 0;
-		j = ft_strlen(s1);
-		while (s1[i] && ft_strchr(set, s1[i]))
-			i++;
-		while (s1[j - 1] && ft_strchr(set, s1[j - 1]) && j > i)
-			j--;
-		str = (char *)malloc(sizeof(char) * (j - i + 1));
-		if (str)
-			ft_strlcpy(str, &s1[i], j - i + 1);
-	}
-	return (str);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }
