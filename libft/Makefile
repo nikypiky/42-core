@@ -29,6 +29,10 @@ files 	   = ft_strlen \
 			 ft_split \
 			 ft_itoa \
 			 ft_strmapi \
+			 ft_putchar_fd \
+			 ft_putendl_fd \
+			 ft_putnbr_fd \
+			 ft_putstr_fd \
 
 bonus	  = ft_lstiter \
 			ft_lstsize \
@@ -77,8 +81,8 @@ re: fclean all
 
 run:
 	@cc $(CmpFlags) -c main.c -o main.o
-	@cc $(CmpFlags) -o run main.o -L. libft.a
-	@./run
+	@cc $(CmpFlags) -o main main.o -L. libft.a
+	@./main
 	@echo
 
 .PHONY: all, clean, fclean, re, run

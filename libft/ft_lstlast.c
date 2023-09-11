@@ -6,7 +6,7 @@
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 22:34:39 by nik               #+#    #+#             */
-/*   Updated: 2023/09/06 22:34:56 by nik              ###   ########.fr       */
+/*   Updated: 2023/09/11 17:01:26 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	while (lst->next != NULL)
-		lst = lst -> next;
-	return (lst);
+	if (lst)
+	{
+		while (lst->next != NULL)
+			lst = lst -> next;
+		return (lst);
+	}
+	return (NULL);
 }

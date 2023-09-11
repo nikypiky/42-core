@@ -6,7 +6,7 @@
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 22:35:04 by nik               #+#    #+#             */
-/*   Updated: 2023/09/08 19:05:33 by nik              ###   ########.fr       */
+/*   Updated: 2023/09/11 17:02:08 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	t_list	*position;
 
 	position = *lst;
-	
 	if (*lst == NULL)
 		(*lst) = new;
 	else
