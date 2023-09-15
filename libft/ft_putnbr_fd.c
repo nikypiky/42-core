@@ -6,7 +6,7 @@
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 17:01:18 by nik               #+#    #+#             */
-/*   Updated: 2023/09/12 00:35:15 by nik              ###   ########.fr       */
+/*   Updated: 2023/09/12 00:39:25 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	putnbr_digit_nbr(int nbr)
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char			string[11];
+	char			string[12];
 	unsigned int	nbr;
 	unsigned int	str;
 

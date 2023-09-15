@@ -3,10 +3,17 @@
 #include <bsd/string.h> 
 #include <time.h>
 
-int main() {
-    int number = 12345;
-    int fd = 1; // Use file descriptor 1 (stdout) for testing, you can change it to a file descriptor or open a file.
+int main() 
+{
+	//char	test[] = "test\134";
+	//int	i = 0;
 
-    ft_putnbr_fd(number, fd);
-    return 0;
+	//while (test[i])
+	//{
+	//	printf("%c", test[i]);
+	//	i++;
+	//}
+	printf("%d\n", ft_memcmp("", "test", 4));
+	printf("%d", memcmp("", "test", 4));
+
 }
