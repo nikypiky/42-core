@@ -6,7 +6,7 @@
 /*   By: nik <nik@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:49:46 by nik               #+#    #+#             */
-/*   Updated: 2023/09/15 14:31:28 by nik              ###   ########.fr       */
+/*   Updated: 2023/09/15 15:26:07 by nik              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		i++;
 	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
-

@@ -80,8 +80,8 @@ fclean: clean
 re: fclean all
 
 run:
-	@cc $(CmpFlags) -c main.c -o main.o
-	@cc $(CmpFlags) -o main main.o -L. libft.a
+	@cc $(CmpFlags) -c main.c -o main.o 
+	@cc $(CmpFlags) -o main main.o -L. libft.a -lbsd
 	@./main
 	@echo
 
