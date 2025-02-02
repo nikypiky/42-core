@@ -45,7 +45,7 @@ bonus	  = ft_lstiter \
 			ft_lstdelone
 
 
-			
+
 Compiler	= gcc
 
 CmpFlags	= -Wall -Wextra -Werror
@@ -62,7 +62,7 @@ OBONUS	= $(bonus:%=%.o)
 
 NAME	= $(OUTN)
 
-all: make bonus $(NAME) run
+all: make bonus $(NAME)
 
 $(NAME):
 	@$(Compiler) $(CmpFlags) -c $(CFILES) -I./
@@ -80,7 +80,7 @@ fclean: clean
 re: fclean all
 
 run:
-	@cc $(CmpFlags) -c main.c -o main.o 
+	@cc $(CmpFlags) -c main.c -o main.o
 	@cc $(CmpFlags) -o main main.o -L. libft.a -lbsd
 	@./main
 	@echo
